@@ -1,0 +1,23 @@
+[Unit]
+Description=SearXNG MCP Search Server
+After=network-online.target
+
+[Container]
+Image=localhost/atareao/mcp-searxng:latest
+ContainerName=mcp-searxng
+PublishPort=3005:3005
+
+# Environment
+Environment=RUST_LOG=mcp_searxng=debug
+Environment=SEARXNG_URL=http://localhost:8080
+Environment=MCP_TRANSPORT=http
+Environment=MCP_PORT=3005
+
+# Networks
+Network=traefik.network
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
